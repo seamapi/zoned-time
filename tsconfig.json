@@ -24,7 +24,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "@seamapi/url-search-params-serializer": ["./src/index.ts"],
+      "zoned-time": ["./src/index.ts"],
       "lib/*": ["./src/lib/*"]
     }
   },
