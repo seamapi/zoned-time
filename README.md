@@ -3,11 +3,34 @@
 [![npm](https://img.shields.io/npm/v/zoned-time.svg)](https://www.npmjs.com/package/zoned-time)
 [![GitHub Actions](https://github.com/seamapi/zoned-time/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/zoned-time/actions/workflows/check.yml)
 
-A ZonedTime is a PlainTime with a TimeZone, as specified in the Temporal Proposal.
+A ZonedTime is a [PlainTime] with a [TimeZone], as specified in the [Temporal] proposal.
+
+[PlainTime]: https://tc39.es/proposal-temporal/docs/plaintime.html
+[TimeZone]: https://tc39.es/proposal-temporal/docs/timezone.html
+[Temporal]: https://tc39.es/proposal-temporal/docs/
 
 ## Description
 
-TODO
+A `ZonedTime` is an input and output specification for representing a time of day and associated time zone.
+The input specification is generous, allowing a natural specification of time e.g. `"3pm ET"`.
+The output specification is strict, normalized, and simple to parse.
+
+The implementation closely follows the other Temporal specifications
+as a natural extension of the standard.
+
+## Motivation
+
+- A time of day, without a reference to a particular date, is useful for the representation of recurring daily events or events that adapt to local time.
+- `Temporal.PlainTime` is a promising standard for representing a time of day, but does not incorporate the time zone.
+- Many contexts require a time zone to unambiguously interpret the time of day.
+- There is no standard de-facto format for time of day that clearly incorporates time zone information, so a new standard or derivative standard is necessary.
+
+### Alternatives
+
+- ISO8601/RFC3339 is an excellent standard for representing a point in time.,
+  but does not work well for representing recurring daily events such as a meeting that occurs every day at 9am.
+- The iCal standard represents recurring events,
+  but is not widely an accepted standard for representing simple daily recurring events.
 
 ## Installation
 
