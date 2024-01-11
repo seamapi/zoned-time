@@ -1,4 +1,6 @@
-export interface ZonedTimeInput {
+export type ZonedTimeLike = PartialZonedTime | string
+
+interface PartialZonedTime {
   hour: number
   minute?: number
   second?: number
@@ -8,17 +10,19 @@ export interface ZonedTimeInput {
   timeZone: string
 }
 
-export const parseInput = (input: ZonedTimeInput | string): ZonedTimeInput => {
+export const parseZonedTimeString = (
+  input: ZonedTimeLike,
+): PartialZonedTime => {
   if (typeof input !== 'string') return input
 
   if (input.trim() === '') {
-    throw new UnparsableZonedTimeInputError(input, 'empty string')
+    throw new UnparsableZonedTimeStringError(input, 'empty string')
   }
 
   return { hour: 0, timeZone: 'UTC' }
 }
 
-export class UnparsableZonedTimeInputError extends Error {
+export class UnparsableZonedTimeStringError extends Error {
   constructor(input: string, message: string) {
     super(`Cannot parse ${input} as ZonedTime: ${message}`)
     this.name = this.constructor.name
