@@ -1,3 +1,5 @@
+import { Temporal } from '@js-temporal/polyfill'
+
 export type ZonedTimeLike = PartialZonedTime | string
 
 interface PartialZonedTime {
@@ -10,16 +12,22 @@ interface PartialZonedTime {
   timeZone: string
 }
 
-export const parseZonedTimeString = (
-  input: ZonedTimeLike,
-): PartialZonedTime => {
-  if (typeof input !== 'string') return input
+export const parseZonedTimeLike = (input: ZonedTimeLike): PartialZonedTime => {
+  if (typeof input === 'string') {
+    return parseZonedTimeString(input.trim())
+  }
+  return input
+}
 
-  if (input.trim() === '') {
+const parseZonedTimeString = (input: string): PartialZonedTime => {
+  if (input === '') {
     throw new UnparsableZonedTimeStringError(input, 'empty string')
   }
 
-  return { hour: 0, timeZone: 'UTC' }
+  return {
+...Temporal.PlainTime.from(input),
+timeZone: 'UTC'
+  }
 }
 
 export class UnparsableZonedTimeStringError extends Error {

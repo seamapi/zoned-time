@@ -1,7 +1,7 @@
 import { Temporal } from '@js-temporal/polyfill'
 
 import {
-  parseZonedTimeString,
+  parseZonedTimeLike,
   type ZonedTimeLike,
 } from './parse-zoned-time-string.js'
 
@@ -38,7 +38,7 @@ export class ZonedTime {
       microsecond,
       nanosecond,
       timeZone,
-    } = parseZonedTimeString(thing)
+    } = parseZonedTimeLike(thing)
 
     return new ZonedTime(
       hour,
