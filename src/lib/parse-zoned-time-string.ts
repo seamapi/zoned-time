@@ -25,8 +25,8 @@ const parseZonedTimeString = (input: string): PartialZonedTime => {
   }
 
   return {
-...Temporal.PlainTime.from(input),
-timeZone: 'UTC'
+    ...Temporal.PlainTime.from(input),
+    timeZone: 'UTC',
   }
 }
 
