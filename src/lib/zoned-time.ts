@@ -3,13 +3,8 @@ import { Temporal } from '@js-temporal/polyfill'
 import { parseInput, type ZonedTimeInput } from './parse-input.js'
 
 export class ZonedTime {
-  hour: number
-  minute: number
-  second: number
-  millisecond: number
-  microsecond: number
-  nanosecond: number
-  timeZone: string
+  readonly #plainTime: Temporal.PlainTime
+  readonly #timeZone: Temporal.TimeZone
 
   constructor(
     isoHour: number = 0,
@@ -20,13 +15,15 @@ export class ZonedTime {
     isoNanosecond: number = 0,
     timeZone: string = 'UTC',
   ) {
-    this.timeZone = timeZone
-    this.hour = isoHour
-    this.minute = isoMinute
-    this.second = isoSecond
-    this.millisecond = isoMillisecond
-    this.microsecond = isoMicrosecond
-    this.nanosecond = isoNanosecond
+    this.#plainTime = new Temporal.PlainTime(
+      isoHour,
+      isoMinute,
+      isoSecond,
+      isoMillisecond,
+      isoMicrosecond,
+      isoNanosecond,
+    )
+    this.#timeZone = new Temporal.TimeZone(timeZone)
   }
 
   static from(input: string | ZonedTimeInput): ZonedTime {
@@ -51,9 +48,39 @@ export class ZonedTime {
     )
   }
 
+  get hour(): number {
+    return this.#plainTime.hour
+  }
+
+  get minute(): number {
+    return this.#plainTime.minute
+  }
+
+  get second(): number {
+    return this.#plainTime.second
+  }
+
+  get millisecond(): number {
+    return this.#plainTime.millisecond
+  }
+
+  get microsecond(): number {
+    return this.#plainTime.microsecond
+  }
+
+  get nanosecond(): number {
+    return this.#plainTime.nanosecond
+  }
+
+  get timeZone(): string {
+    return this.#timeZone.toString()
+  }
+
+  getTimeZone(): Temporal.TimeZone {
+    return this.#timeZone
+  }
+
   toString(): string {
-    const { timeZone, ...rest } = this
-    const time = Temporal.PlainTime.from(rest)
-    return `${time.toString()}[${timeZone}]`
+    return `${this.#plainTime.toString()}[${this.timeZone}]`
   }
 }
