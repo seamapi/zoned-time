@@ -12,7 +12,7 @@ A ZonedTime is a [PlainTime] with a [TimeZone], as specified in the [Temporal] p
 ## Description
 
 A `ZonedTime` is an input and output specification for representing a time of day and associated time zone.
-The input specification is generous, allowing a natural specification of time e.g. `"3pm ET"`.
+The input specification is generous, allowing a natural specification of time e.g. `"3pm America/Los_Angeles"`.
 The output specification is strict, normalized, and simple to parse.
 
 The implementation closely follows the other Temporal specifications
@@ -50,8 +50,8 @@ $ npm install zoned-time
 ```ts
 import { ZonedTime } from 'zoned-time'
 
-const zonedTime = ZonedTime.from('14:05:00[ET]')
-zonedTime.toString() //=> ''
+const zonedTime = ZonedTime.from('14:05:00[America/Los_Angeles]')
+zonedTime.toString() //=> '14:05:00[America/Los_Angeles]'
 ```
 
 ## Development and Testing
