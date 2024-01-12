@@ -42,6 +42,15 @@ $ npm install zoned-time
 
 [npm]: https://www.npmjs.com/
 
+## Usage
+
+```ts
+import { ZonedTime } from 'zoned-time'
+
+const zonedTime = ZonedTime.from('14:05:00[ET]')
+zonedTime.toString() //=> ''
+```
+
 ## Development and Testing
 
 ### Quickstart
