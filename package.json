@@ -1,6 +1,6 @@
 {
   "name": "zoned-time",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "A ZonedTime is a PlainTime with a TimeZone, as specified in the Temporal Proposal.",
   "type": "module",
   "main": "index.js",
