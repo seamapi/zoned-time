@@ -19,5 +19,5 @@ export const builder: Builder = {
 
 export const handler: Handler<Options> = async ({ thing, logger }) => {
   const zonedTime = ZonedTime.from(thing)
-  logger.info(zonedTime, zonedTime.toString())
+  logger.info(zonedTime.getISOFields(), zonedTime.toString())
 }
