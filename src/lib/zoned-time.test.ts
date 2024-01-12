@@ -29,6 +29,48 @@ test('ZonedTime: toString', (t) => {
   t.is(zonedTime.toString(), '01:02:03.004005006[America/Los_Angeles]')
 })
 
+test('ZonedTime: toJSON', (t) => {
+  const zonedTime = new ZonedTime(1, 2, 3, 4, 5, 6, 'America/Los_Angeles')
+  t.is(zonedTime.toJSON(), '01:02:03.004005006[America/Los_Angeles]')
+})
+
+test('ZonedTime: toLocaleString', (t) => {
+  const zonedTime = new ZonedTime(1, 2, 3, 4, 5, 6, 'America/Los_Angeles')
+  t.truthy(zonedTime.toLocaleString())
+})
+
+test('ZonedTime: getISOFields', (t) => {
+  const zonedTime = new ZonedTime(1, 2, 3, 4, 5, 6, 'America/Los_Angeles')
+  t.deepEqual(zonedTime.getISOFields(), {
+    isoHour: 1,
+    isoMinute: 2,
+    isoSecond: 3,
+    isoMillisecond: 4,
+    isoMicrosecond: 5,
+    isoNanosecond: 6,
+    timeZone: 'America/Los_Angeles',
+  })
+})
+
+test('ZonedTime: round', (t) => {
+  const zonedTime = new ZonedTime(
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    'America/Los_Angeles',
+  ).round('minute')
+  t.is(zonedTime.hour, 1)
+  t.is(zonedTime.minute, 2)
+  t.is(zonedTime.second, 0)
+  t.is(zonedTime.millisecond, 0)
+  t.is(zonedTime.microsecond, 0)
+  t.is(zonedTime.nanosecond, 0)
+  t.is(zonedTime.timeZone, 'America/Los_Angeles')
+})
+
 test('ZonedTime: from', (t) => {
   const zonedTime = ZonedTime.from({
     hour: 1,

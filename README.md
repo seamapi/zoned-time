@@ -18,6 +18,9 @@ The output specification is strict, normalized, and simple to parse.
 The implementation closely follows the other Temporal specifications
 as a natural extension of the standard.
 
+_A `ZonedTime` implements most of the same methods as `PlainTime`.
+Some methods of `PlainTime` are still being evaluated for inclusion in `ZonedTime`._
+
 ## Motivation
 
 - A time of day, without a reference to a particular date, is useful for the representation of recurring daily events or events that adapt to local time.

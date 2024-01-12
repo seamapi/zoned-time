@@ -86,4 +86,58 @@ export class ZonedTime {
   toString(): string {
     return `${this.#plainTime.toString()}[${this.timeZone}]`
   }
+
+  toJSON(): string {
+    return this.toString()
+  }
+
+  round(
+    roundTo:
+      | 'hour'
+      | 'minute'
+      | 'second'
+      | 'millisecond'
+      | 'microsecond'
+      | 'nanosecond',
+  ): ZonedTime {
+    const {
+      isoHour,
+      isoMinute,
+      isoSecond,
+      isoMillisecond,
+      isoMicrosecond,
+      isoNanosecond,
+    } = this.#plainTime.round(roundTo).getISOFields()
+
+    return new ZonedTime(
+      isoHour,
+      isoMinute,
+      isoSecond,
+      isoMillisecond,
+      isoMicrosecond,
+      isoNanosecond,
+      this.#timeZone.toString(),
+    )
+  }
+
+  getISOFields(): {
+    isoHour: number
+    isoMinute: number
+    isoSecond: number
+    isoMillisecond: number
+    isoMicrosecond: number
+    isoNanosecond: number
+    timeZone: string
+  } {
+    return {
+      ...this.#plainTime.getISOFields(),
+      timeZone: this.#timeZone.toString(),
+    }
+  }
+
+  toLocaleString(): string {
+    return [this.#plainTime.toLocaleString(), this.timeZone.toString()].join(
+      ' ',
+    )
+  }
 }
