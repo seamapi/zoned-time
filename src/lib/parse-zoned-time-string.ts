@@ -63,6 +63,5 @@ export class UnparsableZonedTimeStringError extends Error {
   constructor(input: string, message: string) {
     super(`Cannot parse ${input} as ZonedTime: ${message}`)
     this.name = this.constructor.name
-    Error.captureStackTrace(this, this.constructor)
   }
 }
