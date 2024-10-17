@@ -15,6 +15,13 @@ A `ZonedTime` is a timezone-aware time object that represents a time of day in a
 It serializes to a normalized format which is simple to parse:
 
 ```js
+Temporal.ZonedDateTime.from('19:53+01:00[Europe/Berlin]').toString()
+// => 19:53+01:00[Europe/Berlin]
+```
+
+The offset is optional and will be computed if omitted:
+
+```js
 Temporal.ZonedDateTime.from('19:53[Europe/Berlin]').toString()
 // => 19:53+01:00[Europe/Berlin]
 ```
@@ -54,8 +61,8 @@ $ npm install zoned-time
 ```ts
 import { ZonedTime } from 'zoned-time'
 
-const zonedTime = ZonedTime.from('14:05:00[Pacific/Honolulu]')
-zonedTime.toString() //=> '14:05:00[Pacific/Honolulu]'
+const zonedTime = ZonedTime.from('14:05:00-10:00[Pacific/Honolulu]')
+zonedTime.toString() //=> '14:05:00-10:00[Pacific/Honolulu]'
 ```
 
 ## Development and Testing
