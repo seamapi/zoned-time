@@ -8,6 +8,7 @@ import {
 export class ZonedTime {
   readonly #plainTime: Temporal.PlainTime
   readonly #timeZone: Temporal.TimeZone
+  readonly #instant: Temporal.Instant
 
   constructor(
     isoHour: number = 0,
@@ -27,6 +28,7 @@ export class ZonedTime {
       isoNanosecond,
     )
     this.#timeZone = new Temporal.TimeZone(timeZone)
+    this.#instant = Temporal.Now.instant()
   }
 
   static from(thing: ZonedTimeLike): ZonedTime {
@@ -79,12 +81,20 @@ export class ZonedTime {
     return this.#timeZone.toString()
   }
 
+  get offset(): string {
+    return this.#timeZone.getOffsetStringFor(this.#instant)
+  }
+
+  get offsetNanoseconds(): number {
+    return this.#timeZone.getOffsetNanosecondsFor(this.#instant)
+  }
+
   getTimeZone(): Temporal.TimeZone {
     return this.#timeZone
   }
 
   toString(): string {
-    return `${this.#plainTime.toString()}[${this.timeZone}]`
+    return `${this.#plainTime.toString()}${this.offset}[${this.timeZone}]`
   }
 
   toJSON(): string {

@@ -25,20 +25,42 @@ const parseZonedTimeString = (input: string): PartialZonedTime => {
   }
 
   try {
-    const [time, rest] = input.split('[')
+    const [head, tail] = input.split('[')
 
-    if (time == null) {
-      throw new UnparsableZonedTimeStringError(input, 'cannot parse date')
+    if (head == null) {
+      throw new UnparsableZonedTimeStringError(input, 'cannot parse time')
     }
 
-    if (rest == null || rest?.length < 2 || !rest?.endsWith(']')) {
+    if (tail == null || tail?.length < 2 || !tail?.endsWith(']')) {
       throw new UnparsableZonedTimeStringError(input, 'cannot parse time zone')
     }
 
+    const timeZone = tail.slice(0, -1)
+
+    const offsetSign = head.includes('-') ? '-' : '+'
+    const [time, offsetValue] = head.split(offsetSign)
+
+    const offset = offsetValue == null ? null : `${offsetSign}${offsetValue}`
+
+    if (
+      offset !== null &&
+      offset !==
+        new Temporal.TimeZone(timeZone).getOffsetStringFor(
+          Temporal.Now.instant(),
+        )
+    ) {
+      throw new Error(`Offset ${offset} is invalid for ${timeZone}`)
+    }
+
+    if (time == null) {
+      throw new UnparsableZonedTimeStringError(input, 'cannot parse time')
+    }
+
     const plainTime = Temporal.PlainTime.from(time)
+
     return {
       ...plainTimeToPlainObject(plainTime),
-      timeZone: rest.slice(0, -1),
+      timeZone,
     }
   } catch (err: unknown) {
     if (err instanceof Error) {

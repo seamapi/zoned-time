@@ -19,6 +19,7 @@ Temporal.ZonedDateTime.from('19:53+01:00[Europe/Berlin]').toString()
 // => 19:53+01:00[Europe/Berlin]
 ```
 
+The offset is immutable and will not change after the ZonedTime instance is created.
 The offset is optional and will be computed if omitted:
 
 ```js

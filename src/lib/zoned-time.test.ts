@@ -24,14 +24,24 @@ test('ZonedTime: constructor with defaults', (t) => {
   t.is(zonedTime.timeZone, 'UTC')
 })
 
+test('ZonedTime: offset', (t) => {
+  const zonedTime = new ZonedTime(1, 2, 3, 4, 5, 6, 'Pacific/Honolulu')
+  t.is(zonedTime.offset, '-10:00')
+})
+
+test('ZonedTime: offsetNanoseconds', (t) => {
+  const zonedTime = new ZonedTime(1, 2, 3, 4, 5, 6, 'Pacific/Honolulu')
+  t.is(zonedTime.offsetNanoseconds, -3.6e13)
+})
+
 test('ZonedTime: toString', (t) => {
   const zonedTime = new ZonedTime(1, 2, 3, 4, 5, 6, 'Pacific/Honolulu')
-  t.is(zonedTime.toString(), '01:02:03.004005006[Pacific/Honolulu]')
+  t.is(zonedTime.toString(), '01:02:03.004005006-10:00[Pacific/Honolulu]')
 })
 
 test('ZonedTime: toJSON', (t) => {
   const zonedTime = new ZonedTime(1, 2, 3, 4, 5, 6, 'Pacific/Honolulu')
-  t.is(zonedTime.toJSON(), '01:02:03.004005006[Pacific/Honolulu]')
+  t.is(zonedTime.toJSON(), '01:02:03.004005006-10:00[Pacific/Honolulu]')
 })
 
 test('ZonedTime: toLocaleString', (t) => {
