@@ -4,8 +4,8 @@ import { UnparsableZonedTimeStringError, ZonedTime } from 'zoned-time'
 
 test('parses object with defaults', (t) => {
   t.is(
-    ZonedTime.from({ hour: 1, timeZone: 'America/Los_Angeles' }).toString(),
-    '01:00:00[America/Los_Angeles]',
+    ZonedTime.from({ hour: 1, timeZone: 'Pacific/Honolulu' }).toString(),
+    '01:00:00[Pacific/Honolulu]',
   )
   t.is(
     ZonedTime.from({ hour: 0, timeZone: 'UTC', minute: 2 }).toString(),
@@ -31,8 +31,8 @@ test('parses object with defaults', (t) => {
 
 test('parses "PlainDate[TimeZone]" format', (t) => {
   t.is(
-    ZonedTime.from('01:02:03.000000004[America/Los_Angeles]').toString(),
-    '01:02:03.000000004[America/Los_Angeles]',
+    ZonedTime.from('01:02:03.000000004[Pacific/Honolulu]').toString(),
+    '01:02:03.000000004[Pacific/Honolulu]',
   )
 })
 

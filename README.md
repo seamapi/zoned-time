@@ -54,8 +54,8 @@ $ npm install zoned-time
 ```ts
 import { ZonedTime } from 'zoned-time'
 
-const zonedTime = ZonedTime.from('14:05:00[America/Los_Angeles]')
-zonedTime.toString() //=> '14:05:00[America/Los_Angeles]'
+const zonedTime = ZonedTime.from('14:05:00[Pacific/Honolulu]')
+zonedTime.toString() //=> '14:05:00[Pacific/Honolulu]'
 ```
 
 ## Development and Testing
