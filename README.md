@@ -11,9 +11,13 @@ A ZonedTime is a [PlainTime] with a [TimeZone], as specified in the [Temporal] p
 
 ## Description
 
-A `ZonedTime` is an input and output specification for representing a time of day and associated time zone.
-The input specification is generous, allowing a natural specification of time e.g. `"3pm America/Los_Angeles"`.
-The output specification is strict, normalized, and simple to parse.
+A `ZonedTime` is a timezone-aware time object that represents a time of day in a particular time zone.
+It serializes to a normalized format which is simple to parse:
+
+```js
+Temporal.ZonedDateTime.from('19:53[Europe/Berlin]').toString()
+// => 19:53+01:00[Europe/Berlin]
+```
 
 The implementation closely follows the other Temporal specifications
 as a natural extension of the standard.
