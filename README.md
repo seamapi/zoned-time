@@ -15,7 +15,7 @@ A `ZonedTime` is a timezone-aware time object that represents a time of day in a
 It serializes to a normalized format which is simple to parse:
 
 ```js
-Temporal.ZonedDateTime.from('19:53[Europe/Berlin]').toString()
+Temporal.ZonedTime.from('19:53[Europe/Berlin]').toString()
 // => 19:53+01:00[Europe/Berlin]
 ```
 
