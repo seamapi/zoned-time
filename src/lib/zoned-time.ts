@@ -7,7 +7,7 @@ import {
 
 export class ZonedTime {
   readonly #plainTime: Temporal.PlainTime
-  readonly #timeZone: Temporal.TimeZone
+  readonly #zonedDateTime: Temporal.ZonedDateTime
 
   constructor(
     isoHour: number = 0,
@@ -16,7 +16,7 @@ export class ZonedTime {
     isoMillisecond: number = 0,
     isoMicrosecond: number = 0,
     isoNanosecond: number = 0,
-    timeZone: string = 'UTC',
+    timeZoneId: string = 'UTC',
   ) {
     this.#plainTime = new Temporal.PlainTime(
       isoHour,
@@ -26,7 +26,9 @@ export class ZonedTime {
       isoMicrosecond,
       isoNanosecond,
     )
-    this.#timeZone = new Temporal.TimeZone(timeZone)
+    this.#zonedDateTime = Temporal.ZonedDateTime.from(
+      Temporal.Now.instant().toZonedDateTimeISO(timeZoneId),
+    )
   }
 
   static from(thing: ZonedTimeLike): ZonedTime {
@@ -75,16 +77,20 @@ export class ZonedTime {
     return this.#plainTime.nanosecond
   }
 
-  get timeZone(): string {
-    return this.#timeZone.toString()
+  get timeZoneId(): string {
+    return this.#zonedDateTime.timeZoneId
   }
 
-  getTimeZone(): Temporal.TimeZone {
-    return this.#timeZone
+  toPlainTime(): Temporal.PlainTime {
+    return this.#plainTime
+  }
+
+  toLocaleString(): string {
+    return [this.#plainTime.toLocaleString(), this.timeZoneId].join(' ')
   }
 
   toString(): string {
-    return `${this.#plainTime.toString()}[${this.timeZone}]`
+    return `${this.#plainTime.toString()}[${this.timeZoneId}]`
   }
 
   toJSON(): string {
@@ -100,44 +106,17 @@ export class ZonedTime {
       | 'microsecond'
       | 'nanosecond',
   ): ZonedTime {
-    const {
-      isoHour,
-      isoMinute,
-      isoSecond,
-      isoMillisecond,
-      isoMicrosecond,
-      isoNanosecond,
-    } = this.#plainTime.round(roundTo).getISOFields()
+    const { hour, minute, second, millisecond, microsecond, nanosecond } =
+      this.#plainTime.round(roundTo)
 
     return new ZonedTime(
-      isoHour,
-      isoMinute,
-      isoSecond,
-      isoMillisecond,
-      isoMicrosecond,
-      isoNanosecond,
-      this.#timeZone.toString(),
-    )
-  }
-
-  getISOFields(): {
-    isoHour: number
-    isoMinute: number
-    isoSecond: number
-    isoMillisecond: number
-    isoMicrosecond: number
-    isoNanosecond: number
-    timeZone: string
-  } {
-    return {
-      ...this.#plainTime.getISOFields(),
-      timeZone: this.#timeZone.toString(),
-    }
-  }
-
-  toLocaleString(): string {
-    return [this.#plainTime.toLocaleString(), this.timeZone.toString()].join(
-      ' ',
+      hour,
+      minute,
+      second,
+      millisecond,
+      microsecond,
+      nanosecond,
+      this.timeZoneId,
     )
   }
 }

@@ -10,7 +10,7 @@ test('ZonedTime: constructor', (t) => {
   t.is(zonedTime.millisecond, 4)
   t.is(zonedTime.microsecond, 5)
   t.is(zonedTime.nanosecond, 6)
-  t.is(zonedTime.timeZone, 'America/Los_Angeles')
+  t.is(zonedTime.timeZoneId, 'America/Los_Angeles')
 })
 
 test('ZonedTime: constructor with defaults', (t) => {
@@ -21,7 +21,7 @@ test('ZonedTime: constructor with defaults', (t) => {
   t.is(zonedTime.millisecond, 0)
   t.is(zonedTime.microsecond, 0)
   t.is(zonedTime.nanosecond, 0)
-  t.is(zonedTime.timeZone, 'UTC')
+  t.is(zonedTime.timeZoneId, 'UTC')
 })
 
 test('ZonedTime: toString', (t) => {
@@ -37,19 +37,6 @@ test('ZonedTime: toJSON', (t) => {
 test('ZonedTime: toLocaleString', (t) => {
   const zonedTime = new ZonedTime(1, 2, 3, 4, 5, 6, 'America/Los_Angeles')
   t.truthy(zonedTime.toLocaleString())
-})
-
-test('ZonedTime: getISOFields', (t) => {
-  const zonedTime = new ZonedTime(1, 2, 3, 4, 5, 6, 'America/Los_Angeles')
-  t.deepEqual(zonedTime.getISOFields(), {
-    isoHour: 1,
-    isoMinute: 2,
-    isoSecond: 3,
-    isoMillisecond: 4,
-    isoMicrosecond: 5,
-    isoNanosecond: 6,
-    timeZone: 'America/Los_Angeles',
-  })
 })
 
 test('ZonedTime: round', (t) => {
@@ -68,7 +55,7 @@ test('ZonedTime: round', (t) => {
   t.is(zonedTime.millisecond, 0)
   t.is(zonedTime.microsecond, 0)
   t.is(zonedTime.nanosecond, 0)
-  t.is(zonedTime.timeZone, 'America/Los_Angeles')
+  t.is(zonedTime.timeZoneId, 'America/Los_Angeles')
 })
 
 test('ZonedTime: from', (t) => {
@@ -88,7 +75,7 @@ test('ZonedTime: from', (t) => {
   t.is(zonedTime.millisecond, 4)
   t.is(zonedTime.microsecond, 5)
   t.is(zonedTime.nanosecond, 6)
-  t.is(zonedTime.timeZone, 'America/Los_Angeles')
+  t.is(zonedTime.timeZoneId, 'America/Los_Angeles')
 })
 
 test('ZonedTime: from with defaults', (t) => {
@@ -103,5 +90,5 @@ test('ZonedTime: from with defaults', (t) => {
   t.is(zonedTime.millisecond, 0)
   t.is(zonedTime.microsecond, 0)
   t.is(zonedTime.nanosecond, 0)
-  t.is(zonedTime.timeZone, 'UTC')
+  t.is(zonedTime.timeZoneId, 'UTC')
 })
