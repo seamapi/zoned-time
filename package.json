@@ -84,8 +84,11 @@
     "landlubber": "^1.0.0",
     "prettier": "^3.0.0",
     "tsc-alias": "^1.8.2",
-    "tsup": "^8.0.1",
+    "tsup": "~8.4.0",
     "tsx": "^4.6.2",
     "typescript": "^5.1.0"
+  },
+  "overrides": {
+    "tar": "^7.5.21"
   }
 }
